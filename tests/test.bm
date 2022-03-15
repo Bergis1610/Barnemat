@@ -1,0 +1,209 @@
+Program test
+
+Start{
+	
+	
+	Heltall x := 0;
+	Heltall y := 0;
+	//Sannhet h := sant;
+	
+	medan (x < 5) Gjenta {
+	
+		Skriv ut: x;
+		Angi x := x+1;
+		
+		Angi y := 0;
+		Gjenta{
+			Skriv ut: "";
+			Skriv ut: "";
+			Skriv ut: y;
+			Angi y := y+1;
+		} mens (y< 5)
+		
+	}
+	
+	
+		
+/*	
+
+	Gjenta {
+	
+		Skriv ut: x;
+		
+
+	} Mens (!h)
+	Angi h := usant;
+	Gjenta {
+	
+		Skriv ut: x;
+		
+
+	} Mens (h)
+	
+	
+	Dersom (h) så{
+	
+		Skriv ut: "Det er sant";
+	}
+*/
+		
+
+	//Test;
+	
+	
+	
+	
+	//boolean sant/true = 1
+	//boolean usant/false = 0
+	//IFEQ må brukast
+
+
+	
+/*
+          
+enterEntenEller            
+            //Loads the input and checks whether it equals 0 or not
+            if()	
+            
+            utfall 1 barn
+            mv.visitVarInsn(ILOAD, IDsanning);
+            mv.visitJumpInsn(IFEQ, skip); 
+            
+            utfall 3 born 
+            mv.visitVarInsn(ILOAD, IDtall);
+            mv.visitVarInsn(ILOAD, IDtall);
+            mv.visitJumpInsn(IFCMP(EQ|NE|LE|GE), skip); 
+            
+            
+enterArgument            
+            {
+            //The input was equal to 0 so it didnt skip          
+            mv.visitFieldInsn(GETSTATIC,"java/lang/System", "out", "Ljava/io/PrintStream;");
+            mv.visitLdcInsn("Input equals 0");
+            mv.visitMethodInsn(INVOKEVIRTUAL, "java/io/PrintStream", "println", "(Ljava/lang/String;)V", false);
+	    }       
+exitArgument       
+            else 	
+            //Skips to the end
+            mv.visitJumpInsn(GOTO, end);             
+
+enterArgument
+	    {
+            //The input was not 0 so it jumped to here
+            mv.visitLabel(skip);
+            mv.visitFieldInsn(GETSTATIC,"java/lang/System", "out", "Ljava/io/PrintStream;");
+            mv.visitLdcInsn("Input does NOT equal 0");
+            mv.visitMethodInsn(INVOKEVIRTUAL, "java/io/PrintStream", "println", "(Ljava/lang/String;)V", false);
+	    }
+exitArgument	    
+	    
+	    
+exitEntenEller
+	    end()
+            //End of main method
+            mv.visitLabel(end);
+
+
+
+
+*/
+/*
+	Sannhet sanning;
+	Angi sanning := sant;
+	
+	Desimaltall z := 0,0;
+	Desimaltall u := 1,0;
+	Heltall x := 1;
+	Heltall y := 0;
+*/
+/*
+	Dersom (1,0 = 1,0) så{
+	
+		Skriv ut: "Det er sant";
+	
+	}
+	*/
+
+	
+	/* ellers { 
+	
+		Skriv ut: "NEI NEI NEI, IKKE sant!";
+	} */
+	
+	
+	/*
+	'Dersom' '(' ( sammenlikning | Sannhet ) ')' 'så' '{' argument* '}' ('ellers' '{' argument* '}')? ;
+	
+	sammenlikning : (ID | Heltall | Desimaltall) sammenlikn (ID | Heltall | Desimaltall) ;
+	
+	
+	*/
+	
+	
+	
+	
+	
+	
+	//Utskrift funker!
+	/*
+	Heltall x := 3;
+	Heltall k := x;
+	Angi x := 10;
+	Sannhet s := usant;
+	Setning t := "SJALLABAIS";
+	Desimaltall des := 10,34;
+	Skriv ut: des;
+	Skriv ut : t;
+	Skriv ut: "DETTE BURDE FUNKE!!!!";
+	*/
+	
+	
+	//Test;
+	
+	
+	//
+	/*
+	Sannhet k := sant;
+	Skriv ut: k ;
+	*/
+	
+	
+	//Sannhet santa := sAnT;
+	
+	//Setning x := "hei" + "hei";
+	
+	//Skriv ut: "hei";
+	
+	//Test;
+	
+	//Setning heisann := "hei";
+	//Setning set := heisann;
+	//Test;
+	//Desimaltall a := 1,0 + 1,0;
+	//Desimaltall b := a + a;
+	//Heltall x := 4 + 4;
+	//Heltall y := x + x;
+	//Test;
+	
+	
+	//Test;
+	
+	//Desimaltall u := 2,0;
+	//Angi x := z;
+	//Sannhet y := "Hei";
+	
+	
+	
+	
+	
+	/*
+	Heltall y := 10;
+	Skriv ut: y;
+	Dersom(x < 10)
+		så{
+			Angi x := 11;
+		} ellers { 
+			Angi x:= 9; 
+		}
+	*/
+}Slutt

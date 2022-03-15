@@ -1,0 +1,7 @@
+Program Forgjengeren
+
+{ //Start
+
+	Heltall x := 10;
+
+} //Slutt
