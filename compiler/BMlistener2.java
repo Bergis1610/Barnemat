@@ -1587,7 +1587,7 @@ public class stacker{
 		
 		int lokalBarneOpptelling = ctx.getChildCount();
 		System.out.println("Første barn i løkke: "+ctx.getChild(0).getText());
-		if(!ctx.getChild(0).getText().equals("Gjenta")){
+		if(!ctx.getChild(0).getText().equals("Gjenta")&&!ctx.getChild(0).getText().equals("gjenta")){
 				System.out.println("\n\n------------------------------------------");
 				System.out.println("KOMPILATOR ERROR");
 				System.out.println("------------------------------------------");
@@ -2138,10 +2138,6 @@ public class stacker{
 	
 	}
 
-//----------------------------------------------------------------------------------------
-//		-- uferdig --
-//----------------------------------------------------------------------------------------
-
 	//Løkke merkelapper
 	//Start
 	Label løkkeAndreStart1 = new Label();		//1
@@ -2406,7 +2402,10 @@ public class stacker{
 			
 		Label lokalLabStart;
 		Label lokalLabSlutt;
+		
 		int lokaltUtfall = peek(løkke2Stack);
+		//Avlusing
+		//System.out.println("lokaltutfall: " + lokaltUtfall);
 		
 		switch(lokaltUtfall){
 				case 1: {
@@ -2546,7 +2545,8 @@ public class stacker{
 		mainVisitor.visitJumpInsn(GOTO, lokalLabStart);
 		mainVisitor.visitLabel(lokalLabSlutt);	
 			
-			
+		løkke2Dybde--;	
+		pop(løkke2Stack);	
 		System.out.println("Går ut or løkke type 2");
 	}
 	
@@ -2654,121 +2654,123 @@ public class stacker{
 		if(exit)
 			return;
 		
-		Label lokalLab;
+
+		Label lokalLabSlutt;
 		int lokaltUtfall = peek(løkke2Stack);
+
 		
 		switch(lokaltUtfall){
 				case 1: {
-					lokalLab = løkkeAndreSlutt1;
+					lokalLabSlutt = løkkeAndreSlutt1;
 					break;	
 				}
 				case 2: {
 					
 
-					lokalLab = løkkeAndreSlutt2;
+					lokalLabSlutt = løkkeAndreSlutt2;
 					break;
 				}
 				case 3: {
 					
 
-					lokalLab = løkkeAndreSlutt3;
+					lokalLabSlutt = løkkeAndreSlutt3;
 					break;
 				}
 				case 4: {
 					
-					lokalLab = løkkeAndreSlutt4;
+					lokalLabSlutt = løkkeAndreSlutt4;
 					break;
 				}
 				case 5: {
 					
-					lokalLab = løkkeAndreSlutt5;
+					lokalLabSlutt = løkkeAndreSlutt5;
 					break;
 				}
 				case 6: {
 				
-					lokalLab = løkkeAndreSlutt6;
+					lokalLabSlutt = løkkeAndreSlutt6;
 					break;
 				}
 				case 7: { 
 					
-					lokalLab = løkkeAndreSlutt7;
+					lokalLabSlutt = løkkeAndreSlutt7;
 					break;
 				
 				}
 				case 8: {
 				
-					lokalLab = løkkeAndreSlutt8;
+					lokalLabSlutt = løkkeAndreSlutt8;
 					break;
 				
 				}
 				case 9: { 
-					lokalLab = løkkeAndreSlutt9;
+					lokalLabSlutt = løkkeAndreSlutt9;
 					break;
 				
 				}
 				case 10: { 
 
-					lokalLab = løkkeAndreSlutt10;
+					lokalLabSlutt = løkkeAndreSlutt10;
 					break;
 				
 				}
 				case 11: { 
 
-					lokalLab = løkkeAndreSlutt11;
+					lokalLabSlutt = løkkeAndreSlutt11;
 					break;
 				
 				}
 				case 12: { 
 
-					lokalLab = løkkeAndreSlutt12;
+					lokalLabSlutt = løkkeAndreSlutt12;
 					break;
 				
 				}
 				case 13: { 
 
-					lokalLab = løkkeAndreSlutt13;
+					lokalLabSlutt = løkkeAndreSlutt13;
 					break;
 				
 				}
 				case 14: { 
 
-					lokalLab = løkkeAndreSlutt14;
+					lokalLabSlutt = løkkeAndreSlutt14;
 					break;
 				
 				}
 				case 15: { 
 
-					lokalLab = løkkeAndreSlutt15;
+					lokalLabSlutt = løkkeAndreSlutt15;
 					break;
 				
 				}
 				case 16: { 
 
-					lokalLab = løkkeAndreSlutt16;
+					lokalLabSlutt = løkkeAndreSlutt16;
 					break;
 				
 				}
 				case 17: { 
 
-					lokalLab = løkkeAndreSlutt17;
+					lokalLabSlutt = løkkeAndreSlutt17;
 					break;
 				
 				}
 				case 18: { 
 
-					lokalLab = løkkeAndreSlutt18;
+					lokalLabSlutt = løkkeAndreSlutt18;
 					break;
 				
 				}
 				case 19: { 
 
-					lokalLab = løkkeAndreSlutt19;
+					lokalLabSlutt = løkkeAndreSlutt19;
 					break;
 				
 				}
 				case 20: { 
 
-					lokalLab = løkkeAndreSlutt20;
+					lokalLabSlutt = løkkeAndreSlutt20;
 					break;
 				
 				}
@@ -2791,11 +2793,11 @@ public class stacker{
 		
 		if(lokalBarneOpptelling == 1){	
 				
-          		mainVisitor.visitJumpInsn(IFEQ, lokalLab);	
+          		mainVisitor.visitJumpInsn(IFEQ, lokalLabSlutt);	
           	} 
           	if(lokalBarneOpptelling == 2){
           	
-          		mainVisitor.visitJumpInsn(IFNE, lokalLab);
+          		mainVisitor.visitJumpInsn(IFNE, lokalLabSlutt);
           	
           	}
           	if(lokalBarneOpptelling == 3){
@@ -2810,19 +2812,19 @@ public class stacker{
           		if(kretsTallTypeSammenlikn == 1){
           			if(lokalSammenlikningsTeikn.equals(">")){
 				
-					mainVisitor.visitJumpInsn(IF_ICMPLE, lokalLab);
+					mainVisitor.visitJumpInsn(IF_ICMPLE, lokalLabSlutt);
 				
 				} else if(lokalSammenlikningsTeikn.equals("<")){
 				
-					mainVisitor.visitJumpInsn(IF_ICMPGE, lokalLab);
+					mainVisitor.visitJumpInsn(IF_ICMPGE, lokalLabSlutt);
 			
 				} else if(lokalSammenlikningsTeikn.equals("!=")){
 			
-					mainVisitor.visitJumpInsn(IF_ICMPEQ, lokalLab);
+					mainVisitor.visitJumpInsn(IF_ICMPEQ, lokalLabSlutt);
 				
 				} else if(lokalSammenlikningsTeikn.equals("=")){
 				
-					mainVisitor.visitJumpInsn(IF_ICMPNE, lokalLab);
+					mainVisitor.visitJumpInsn(IF_ICMPNE, lokalLabSlutt);
 				
 				} else {
 					System.out.println("\n\n------------------------------------------");
@@ -2841,19 +2843,19 @@ public class stacker{
 				
 				if(lokalSammenlikningsTeikn.equals(">")){
 				
-					mainVisitor.visitJumpInsn(IFLE, lokalLab);
+					mainVisitor.visitJumpInsn(IFLE, lokalLabSlutt);
 				
 				} else if(lokalSammenlikningsTeikn.equals("<")){
 				
-					mainVisitor.visitJumpInsn(IFGE, lokalLab);
+					mainVisitor.visitJumpInsn(IFGE, lokalLabSlutt);
 			
 				} else if(lokalSammenlikningsTeikn.equals("!=")){
 			
-					mainVisitor.visitJumpInsn(IFEQ, lokalLab);
+					mainVisitor.visitJumpInsn(IFEQ, lokalLabSlutt);
 				
 				} else if(lokalSammenlikningsTeikn.equals("=")){
 				
-					mainVisitor.visitJumpInsn(IFNE, lokalLab);
+					mainVisitor.visitJumpInsn(IFNE, lokalLabSlutt);
 				
 				} else {
 					System.out.println("\n\n------------------------------------------");
@@ -2870,11 +2872,11 @@ public class stacker{
 			
 				if(lokalSammenlikningsTeikn.equals("!=")){
 			
-					mainVisitor.visitJumpInsn(IFEQ, lokalLab);
+					mainVisitor.visitJumpInsn(IFEQ, lokalLabSlutt);
 				
 				} else if(lokalSammenlikningsTeikn.equals("=")){
 				
-					mainVisitor.visitJumpInsn(IFNE, lokalLab);
+					mainVisitor.visitJumpInsn(IFNE, lokalLabSlutt);
 					
 				} else {
 					System.out.println("\n\n------------------------------------------");
@@ -2903,11 +2905,76 @@ public class stacker{
           	
           	}
 			 
-		System.out.println("Går ut or sammenlikning for løkke type 1");
+		System.out.println("Går ut or sammenlikning for løkke type 2");
 	
 	}
+
+//----------------------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+//----------------------------------------------------------------------------------------
+//		-- uferdig --
+//----------------------------------------------------------------------------------------
+
+	//Enten merkelapper
+	//Start
+	Label entenStart1 = new Label();	//1
+	Label entenStart2 = new Label();	
+	Label entenStart3 = new Label();	
+	Label entenStart4 = new Label();
+	Label entenStart5 = new Label();	//5
+	Label entenStart6 = new Label();
+	Label entenStart7 = new Label();
+	Label entenStart8 = new Label();
+	Label entenStart9 = new Label();			
+	Label entenStart10 = new Label();	//10
+	Label entenStart11 = new Label();
+	Label entenStart12 = new Label();
+	Label entenStart13 = new Label();
+	Label entenStart14 = new Label();
+	Label entenStart15 = new Label();	//15
+	Label entenStart16 = new Label();
+	Label entenStart17 = new Label();
+	Label entenStart18 = new Label();
+	Label entenStart19 = new Label();			
+	Label entenStart20 = new Label();	//20
 	
-	
+	//Slutt
+	Label entenSlutt1 = new Label();	//1
+	Label entenSlutt2 = new Label();	
+	Label entenSlutt3 = new Label();	
+	Label entenSlutt4 = new Label();
+	Label entenSlutt5 = new Label();	//5
+	Label entenSlutt6 = new Label();
+	Label entenSlutt7 = new Label();
+	Label entenSlutt8 = new Label();
+	Label entenSlutt9 = new Label();			
+	Label entenSlutt10 = new Label();	//10
+	Label entenSlutt11 = new Label();
+	Label entenSlutt12 = new Label();
+	Label entenSlutt13 = new Label();
+	Label entenSlutt14 = new Label();
+	Label entenSlutt15 = new Label();	//15
+	Label entenSlutt16 = new Label();
+	Label entenSlutt17 = new Label();
+	Label entenSlutt18 = new Label();
+	Label entenSlutt19 = new Label();			
+	Label entenSlutt20 = new Label();	//20
+
+					
+	//Løkke (do-while-loop)
+	stacker entenStack = new stacker();
+	int entenDybde = 0;
+	int entenTeller = 0;
 	
 	//Test label
 	Label testStempelHvis = new Label();
@@ -2921,14 +2988,7 @@ public class stacker{
 	@Override public void enterSammenlikningEnten(BarnematParser.SammenlikningEntenContext ctx){
 		if(exit)
 			return;
-		/*	
-		//------------------------------------------------------
-		//FJERN ALT DETTE VED AVLUSING	
-		exit = true;
-		System.out.println("ENDRING MÅ TIL FOR KRETSTALLTYPE");
-		return;
-		//------------------------------------------------------	
-		*/	
+			
 		System.out.println("Går inn i sammenlikning for enten eller");
 			
 		kretsTallTypeSammenlikn = -1;
@@ -3239,8 +3299,352 @@ public class stacker{
 			
 		System.out.println("Går ut or EntenEller");
 	}
+
+
+
+
+	
+//----------------------------------------------------------------------------------------	
+	
+//----------------------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------------------	
 	
 	
+//Prototype	
+/*	
+	//Test label
+	Label testStempelHvis = new Label();
+	
+	//int kretsTilfelleSammenlikning = -1;
+	int kretsTallTypeSammenlikn = -1;
+	//Må muligens endre denne til stacker!
+	
+	
+	//Sammenlikning
+	@Override public void enterSammenlikningEnten(BarnematParser.SammenlikningEntenContext ctx){
+		if(exit)
+			return;
+		///*	
+		//------------------------------------------------------
+		//FJERN ALT DETTE VED AVLUSING	
+		exit = true;
+		System.out.println("ENDRING MÅ TIL FOR KRETSTALLTYPE");
+		return;
+		//------------------------------------------------------	
+		//	
+		System.out.println("Går inn i sammenlikning for enten eller");
+			
+		kretsTallTypeSammenlikn = -1;
+		int lokalBarneOpptelling = ctx.getChildCount();
+		
+		//Avlusing
+		System.out.println("\n\n\n barneopptelling: "+lokalBarneOpptelling+ "\n\n\n");
+		
+		if(lokalBarneOpptelling == 1 ){
+			
+			System.out.println("\nkun ett barn her\n");
+			String lokalID = ctx.getText();
+
+			if(!SymbolTable.containsKey(lokalID)){
+				System.out.println("\n\n------------------------------------------");
+				System.out.println("KOMPILATOR ERROR");
+				System.out.println("------------------------------------------");
+			
+				System.out.println("Feil i sammenlikning, ID'en du oppga finns ikke");
+				exit = true;
+				return; 
+			
+			}
+			
+			variabel lokalVar = SymbolTable.get(lokalID);
+			
+			if(variabelType(lokalVar.variabelType) != 4){
+				System.out.println("\n\n------------------------------------------");
+				System.out.println("KOMPILATOR ERROR");
+				System.out.println("------------------------------------------");
+			
+				System.out.println("Feil i sammenlikning, ID'en du oppga er av type: " 
+				+ lokalVar.variabelType + ", og må være av typen Sannhet");
+				exit = true;
+				return; 
+			
+			}
+			
+			if(!lokalVar.verdiSatt){
+				System.out.println("\n\n------------------------------------------");
+				System.out.println("KOMPILATOR ERROR");
+				System.out.println("------------------------------------------");
+			
+				System.out.println("Feil i sammenlikning, ID'en du oppga har ikke blitt angitt en verdi enda.");
+				exit = true;
+				return;
+			
+			}
+			
+			//Mangler å hente sanninga
+			System.out.println("\n\nOk, da burde dette funke for ett enkelt barn\n\n");
+			mainVisitor.visitVarInsn(ILOAD, lokalVar.minnePlassering);
+					
+
+		
+		} else if(lokalBarneOpptelling == 2){
+		
+		
+			//
+			System.out.println("\nHer finns det 2 born\n");
+			String lokalID = ctx.getChild(1).getText();
+
+			if(!SymbolTable.containsKey(lokalID)){
+				System.out.println("\n\n------------------------------------------");
+				System.out.println("KOMPILATOR ERROR");
+				System.out.println("------------------------------------------");
+			
+				System.out.println("Feil i sammenlikning, ID'en du oppga finns ikke");
+				exit = true;
+				return; 
+			
+			}
+			
+			variabel lokalVar = SymbolTable.get(lokalID);
+			
+			if(variabelType(lokalVar.variabelType) != 4){
+				System.out.println("\n\n------------------------------------------");
+				System.out.println("KOMPILATOR ERROR");
+				System.out.println("------------------------------------------");
+			
+				System.out.println("Feil i sammenlikning, ID'en du oppga er av type: " 
+				+ lokalVar.variabelType + ", og må være av typen Sannhet");
+				exit = true;
+				return; 
+			
+			}
+			
+			if(!lokalVar.verdiSatt){
+				System.out.println("\n\n------------------------------------------");
+				System.out.println("KOMPILATOR ERROR");
+				System.out.println("------------------------------------------");
+			
+				System.out.println("Feil i sammenlikning, ID'en du oppga har ikke blitt angitt en verdi enda.");
+				exit = true;
+				return;
+			
+			}
+			
+			//Mangler å hente sanninga
+			System.out.println("\n\nOk, da burde dette funke for ett enkelt barn\n\n");
+			mainVisitor.visitVarInsn(ILOAD, lokalVar.minnePlassering);
+			
+			
+			
+		
+		} else if(lokalBarneOpptelling == 3){
+		
+		
+			//
+			System.out.println("\nHer finns det 3 born\n");
+			
+			
+			
+		
+		} else {
+			System.out.println("\n\n------------------------------------------");
+			System.out.println("KOMPILATOR ERROR");
+			System.out.println("------------------------------------------");
+			
+			System.out.println("Syntaksfeil i sammenlikning, pass på at det enten er en ID, " 
+			+ "eller ei sammenliking av to tall av samme type");
+			exit = true;
+			return;
+		}
+		
+		
+		
+		
+		
+		
+	}
+	@Override public void exitSammenlikningEnten(BarnematParser.SammenlikningEntenContext ctx){
+		if(exit)
+			return;
+		
+		//Avlusing	
+		//System.out.println("FIKS SAMMENLIKNING!!!!!!");
+		//exit = true;	
+			
+		int lokalBarneOpptelling = ctx.getChildCount();
+		
+		
+		//MÅ ENDRES
+		System.out.println("\t\tMÅ ENDRES I EXITSAMMENLIKNING, altså labels må endres, foreløpig er bare en prototype.");
+		
+		
+		if(lokalBarneOpptelling == 1){	
+			
+				
+          		mainVisitor.visitJumpInsn(IFEQ, testStempelHvis);	
+          	} 
+          	if(lokalBarneOpptelling == 2){
+          	
+          		mainVisitor.visitJumpInsn(IFNE, testStempelHvis);
+          	
+          	}
+          	if(lokalBarneOpptelling == 3){
+          		
+          		
+          		String lokalSammenlikningsTeikn = ctx.getChild(1).getText();
+          		System.out.println("\n\nctx.getText(): "+ lokalSammenlikningsTeikn + " \n\n");
+          		
+          		
+          		System.out.println("kretsTallType i utgangSammenliking: " + kretsTallTypeSammenlikn);
+          		
+          		if(kretsTallTypeSammenlikn == 1){
+          			if(lokalSammenlikningsTeikn.equals(">")){
+				
+					mainVisitor.visitJumpInsn(IF_ICMPLE, testStempelHvis);
+				
+				} else if(lokalSammenlikningsTeikn.equals("<")){
+				
+					mainVisitor.visitJumpInsn(IF_ICMPGE, testStempelHvis);
+			
+				} else if(lokalSammenlikningsTeikn.equals("!=")){
+			
+					mainVisitor.visitJumpInsn(IF_ICMPEQ, testStempelHvis);
+				
+				} else if(lokalSammenlikningsTeikn.equals("=")){
+				
+					mainVisitor.visitJumpInsn(IF_ICMPNE, testStempelHvis);
+				
+				} else {
+					System.out.println("\n\n------------------------------------------");
+					System.out.println("KOMPILATOR ERROR");
+					System.out.println("------------------------------------------");
+				
+					System.out.println("Feil i sammenlikning, sammenlikningsteiknet gjenkjennes ikke.");
+					exit = true;
+					return;
+				}  
+			} else if(kretsTallTypeSammenlikn == 2){
+			
+			
+			
+				mainVisitor.visitInsn(DCMPG);
+				
+				if(lokalSammenlikningsTeikn.equals(">")){
+				
+					mainVisitor.visitJumpInsn(IFLE, testStempelHvis);
+				
+				} else if(lokalSammenlikningsTeikn.equals("<")){
+				
+					mainVisitor.visitJumpInsn(IFGE, testStempelHvis);
+			
+				} else if(lokalSammenlikningsTeikn.equals("!=")){
+			
+					mainVisitor.visitJumpInsn(IFEQ, testStempelHvis);
+				
+				} else if(lokalSammenlikningsTeikn.equals("=")){
+				
+					mainVisitor.visitJumpInsn(IFNE, testStempelHvis);
+				
+				} else {
+					System.out.println("\n\n------------------------------------------");
+					System.out.println("KOMPILATOR ERROR");
+					System.out.println("------------------------------------------");
+				
+					System.out.println("Feil i sammenlikning, sammenlikningsteiknet gjenkjennes ikke.");
+					exit = true;
+					return;
+				}  
+			
+			
+			} else if(kretsTallTypeSammenlikn == 4){
+			
+				if(lokalSammenlikningsTeikn.equals("!=")){
+			
+					mainVisitor.visitJumpInsn(IFEQ, testStempelHvis);
+				
+				} else if(lokalSammenlikningsTeikn.equals("=")){
+				
+					mainVisitor.visitJumpInsn(IFNE, testStempelHvis);
+					
+				} else {
+					System.out.println("\n\n------------------------------------------");
+					System.out.println("KOMPILATOR ERROR");
+					System.out.println("------------------------------------------");
+				
+					System.out.println("Feil i sammenlikning, for å sammenlikne sannheter " 
+					+"så må det enten være likhetstegn eller ulikhetstegn!");
+					exit = true;
+					return;
+				}  	
+			
+			
+			} else {
+				System.out.println("\n\n------------------------------------------");
+				System.out.println("KOMPILATOR ERROR");
+				System.out.println("------------------------------------------");
+				
+				System.out.println("Feil i sammenlikning ved utgang, "
+				+"noe stemmer ikke helt med typene som skal sammenliknes.");
+				exit = true;
+				return;
+			
+			
+			}	        		          	          
+          	
+          	}
+			 
+		System.out.println("Går ut or sammenlikning");
+	}
+	
+//----------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------
+//		-- ikke påbyrja --
+//----------------------------------------------------------------------------------------	
+//----------------------------------------------------------------------------------------
+	
+	//EntenEller (if-else)
+	@Override public void enterEntenEller(BarnematParser.EntenEllerContext ctx){
+		if(exit)
+			return;
+		System.out.println("Går inn i EntenEller");
+		
+		
+//-------------------------------------------------------------------------------------------------------------------------------------------		
+		//Kommenter ut alt under
+///*
+		//System.out.println("\t- ");
+		System.out.println("------------------------------------------------------------------");
+		System.out.println("\t- Finne ut om en mer effektiv måte å bruke merkelapper(label) på, "
+		+ "til dømes: \n\t\t* objekt med innhold, \n\t\t* array, \n\t\t* eller bare lage en haug med merkelapper og switch ");
+		System.out.println("\t- Legge til argument telling for dersom altså if1, if2, osv.");
+		System.out.println("\t- Legge til merkelapper i argument utgang og telling i argument, muligens ha alt i argument?");
+		System.out.println("\t- Legge til djupn/dybde for å kunne ha leira-løkker og entenEller uttrykk. ");
+		
+		exit = true;
+		System.out.println("\n\n\t dette kan fjernes i \"enterEntenEller\"");
+		System.out.println("------------------------------------------------------------------");
+		return;
+
+		//Sjekke at syntaksen stemmer
+		
+		//telle antall if-argument + dypere entenEller og løkker
+//		
+//-------------------------------------------------------------------------------------------------------------------------------------------
+	
+		
+		
+	}
+	@Override public void exitEntenEller(BarnematParser.EntenEllerContext ctx){ 
+		if(exit)
+			return;
+			
+		mainVisitor.visitLabel(testStempelHvis);
+			
+		System.out.println("Går ut or EntenEller");
+	}
+	
+	*/
 	
 	
 	
