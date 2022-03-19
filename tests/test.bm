@@ -3,48 +3,76 @@ Program test
 Start{
 	
 	
+	Sannhet h := usant;
+	Dersom (!h) så {
+	
+		Skriv ut: "h = usant";
+	
+	}
+	
+	
+	
+	
+	
+/* FUNKER!!	
+
 	Heltall x := 0;
 	Heltall y := 0;
-	//Sannhet h := sant;
+	Heltall teller := 0;
 	
-	medan (x < 5) Gjenta {
+	Mens(x<5) gjenta {
 	
-		Skriv ut: x;
-		Angi x := x+1;
-		
+		Angi x := x + 1;
+		Skriv ut: "Halla";
 		Angi y := 0;
-		Gjenta{
-			Skriv ut: "";
-			Skriv ut: "";
-			Skriv ut: y;
-			Angi y := y+1;
-		} mens (y< 5)
 		
+		Mens(y < 1) gjenta {
+			
+			Angi y := y + 1;
+			Skriv ut: "Første";
+		
+		
+		}
+		Angi y := 0;
+		gjenta {
+			
+			Angi y := y + 1;
+			Skriv ut: "Andre";
+		
+		
+		}Mens(y < 0) 	
+		
+	
+	
+	
 	}
+*/
+	
+	
+	
+/* FUNKER!	
+	Gjenta{
+	
+		Angi teller := teller + 1;
+		Gjenta {
+		
+			Angi x := x + 1;
+			Gjenta {
+	
+				Angi y := y +1;
+				Skriv ut: "Halla";
+			} mens (y<2)
+	
+		} mens (x<2)
+	
+	}medan (teller < 2)
+*/	
 	
 	
 		
-/*	
+/*	FUNKER!!
 
-	Gjenta {
 	
-		Skriv ut: x;
-		
-
-	} Mens (!h)
-	Angi h := usant;
-	Gjenta {
-	
-		Skriv ut: x;
-		
-
-	} Mens (h)
-	
-	
-	Dersom (h) så{
-	
-		Skriv ut: "Det er sant";
-	}
 */
 		
 
