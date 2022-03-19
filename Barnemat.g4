@@ -49,7 +49,7 @@ entenEller: 'Dersom' '(' (sammenlikningEnten) ')' 'så' '{' argument* '}' ('elle
 
 sammenlikningEnten : (sammenliknbar sammenlikn sammenliknbar) | (ID ('!='|'=')  Sannhet) | (('!')? ID);
 
-løkke1 : 'Gjenta' '{' argument* '}' ('Medan'|'Mens'|'medan'|'mens') '(' sammenlikningLøkke1 ')' ;
+løkke1 : ('Gjenta'|'gjenta') '{' argument* '}' ('Medan'|'Mens'|'medan'|'mens') '(' sammenlikningLøkke1 ')' ;
 løkke2 : ('Medan'|'Mens'|'medan'|'mens') '(' sammenlikningLøkke2 ')' ('Gjenta'|'gjenta') '{' argument* '}'  ;
 
 sammenlikningLøkke1 : (sammenliknbar sammenlikn sammenliknbar) | (ID ('!='|'=')  Sannhet) | (('!')? ID);
@@ -104,4 +104,5 @@ ML_COMMENT
     :   '/*' .*? '*/' '\n' -> skip
     ;  
     
+
 
