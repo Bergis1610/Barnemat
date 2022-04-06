@@ -8,6 +8,7 @@ import static org.objectweb.asm.Opcodes.*;
 import lexparse.*; //classes for lexer parser
 import java.util.*;
 
+
 import java.lang.*;
 
 
@@ -72,6 +73,7 @@ public class BMlistener2 extends BarnematBaseListener{
 
         	Utilities.writeFile(b,this.programName+".class");
 
+		System.out.println("\n\n\nKompilering fullført!");
         	System.out.println("Ei fil har blitt laga i output-mappa");
 
 	}//end closeClass
@@ -170,7 +172,7 @@ public class stacker{
 	
 	
 	public boolean exit = false;
-	public int minneTeller = 1;
+	public int minneTeller = 2;
 	
 		@Override 
 	public void enterFil(BarnematParser.FilContext ctx){ 
@@ -220,14 +222,15 @@ public class stacker{
 	}
 	
 	public boolean besøktArgument = false;
-	public int argumentDybde = -1;
+	public int argumentDybde = 0;
 	@Override 
 	public void enterArgument(BarnematParser.ArgumentContext ctx) {
 		if(exit)
 			return;
 		besøktArgument = true;	
 		System.out.println("Går inn i argument");
-		argumentDybde++;	
+		argumentDybde++;
+		System.out.println("\n\n\nNåværende arg djupn: " + argumentDybde+ "\n\n\n");	
 		
 		
 	}
@@ -236,8 +239,185 @@ public class stacker{
 
 		if(exit)
 			return;
-	
-	
+		
+		
+		if(entenDybde > 0){
+				
+			if(peek(entenTellerStack)> 0){
+				
+				if(argumentDybde == peek(entenArgDybdeStack)+1){
+				
+					if(peek(entenTellerStack) == 1){
+						
+						System.out.println("Her byrjer Ellers");	
+						Label lokalLabStart;
+						Label lokalLabSlutt;
+						int lokaltUtfall = peek(entenDybdeStack);
+
+							
+		
+							switch(lokaltUtfall){
+								case 1: {
+									lokalLabStart = entenStart1;
+									lokalLabSlutt = entenSlutt1;
+									break;	
+								}
+								case 2: {
+									
+									lokalLabStart = entenStart2;
+									lokalLabSlutt = entenSlutt2;
+									break;
+								}
+								case 3: {
+									
+									lokalLabStart = entenStart3;
+									lokalLabSlutt = entenSlutt3;
+									break;
+								}
+								case 4: {
+				
+									lokalLabStart = entenStart4;
+									lokalLabSlutt = entenSlutt4;
+									break;
+								}
+								case 5: {
+								
+									lokalLabStart = entenStart5;	
+									lokalLabSlutt = entenSlutt5;
+									break;
+								}
+								case 6: {
+							
+									lokalLabStart = entenStart6;
+									lokalLabSlutt = entenSlutt6;
+									break;
+								}
+								case 7: { 
+				
+									lokalLabStart = entenStart7;	
+									lokalLabSlutt = entenSlutt7;
+									break;
+							
+								}
+								case 8: {
+								
+									lokalLabStart = entenStart8;
+									lokalLabSlutt = entenSlutt8;
+									break;
+				
+								}
+								case 9: { 
+					
+									lokalLabStart = entenStart9;
+									lokalLabSlutt = entenSlutt9;
+									break;
+				
+								}
+								case 10: { 
+						
+									lokalLabStart = entenStart10;
+									lokalLabSlutt = entenSlutt10;
+									break;
+						
+								}
+								case 11: { 
+ 						
+ 									lokalLabStart = entenStart11;
+									lokalLabSlutt = entenSlutt11;
+									break;
+					
+								}
+								case 12: { 
+
+									lokalLabStart = entenStart12;
+									lokalLabSlutt = entenSlutt12;
+									break;
+				
+								}
+								case 13: { 
+					
+									lokalLabStart = entenStart13;
+									lokalLabSlutt = entenSlutt13;
+									break;
+				
+								}
+								case 14: { 
+					
+									lokalLabStart = entenStart14;
+									lokalLabSlutt = entenSlutt14;
+									break;
+					
+								}
+								case 15: { 
+
+									lokalLabStart = entenStart15;
+									lokalLabSlutt = entenSlutt15;
+									break;
+				
+								}
+								case 16: { 
+
+									lokalLabStart = entenStart16;
+									lokalLabSlutt = entenSlutt16;
+									break;
+				
+								}
+								case 17: { 
+
+									lokalLabStart = entenStart17;
+									lokalLabSlutt = entenSlutt17;
+									break;
+				
+								}
+								case 18: { 
+
+									lokalLabStart = entenStart18;
+									lokalLabSlutt = entenSlutt18;
+									break;
+				
+								}
+								case 19: { 
+
+									lokalLabStart = entenStart19;
+									lokalLabSlutt = entenSlutt19;
+									break;
+					
+								}
+								case 20: { 
+
+									lokalLabStart = entenStart20;
+									lokalLabSlutt = entenSlutt20;
+									break;
+					
+								}
+								default: {
+				
+									System.out.println("\n\n------------------------------------------");
+									System.out.println("KOMPILATOR ERROR");
+									System.out.println("------------------------------------------");
+				
+							System.out.println("Merkelapp feil ved utgang av sammenlikning for entenEller.");
+							
+									exit = true;
+									return;
+								}		
+						}
+							
+							
+						mainVisitor.visitJumpInsn(GOTO, lokalLabSlutt);
+						mainVisitor.visitLabel(lokalLabStart);
+							
+					}	
+		
+						int lokaltNyttTall = pop(entenTellerStack)-1;
+						push(entenTellerStack, lokaltNyttTall);	
+				}
+			
+			}
+			
+		}
+		
+		
 		argumentDybde--;
 		System.out.println("Går ut or argument");
 		
@@ -872,7 +1052,7 @@ public class stacker{
 					System.out.println("------------------------------------------");
 			
 					System.out.println("Feil med variabeltypen du oppga og verdien som angis.");
-				System.out.println("Variabeltypene \""+kretsVarType +"\" og \""+lokalVar.variabelType+"\" samstemmer ikke");
+			System.out.println("Variabeltypene \""+kretsVarType +"\" og \""+lokalVar.variabelType+"\" samstemmer ikke");
 					exit = true;
 					return;
 					
@@ -1169,7 +1349,7 @@ public class stacker{
 		
 		//avlusing
 		System.out.println("child count: " + ctx.getChildCount());
-		if(ctx.getChildCount() != 4){
+		if(ctx.getChildCount() != 5){
 		
 			System.out.println("\n\n------------------------------------------");
 			System.out.println("KOMPILATOR FEIL");
@@ -1190,7 +1370,7 @@ public class stacker{
 		if(exit)
 			return;
 		
-		String nøkkel = ctx.getChild(2).getText();
+		String nøkkel = ctx.getChild(3).getText();
 		
 		//Avlusing
 		System.out.println("nøkkel: " + nøkkel);
@@ -2972,7 +3152,9 @@ public class stacker{
 
 					
 	//Løkke (do-while-loop)
-	stacker entenStack = new stacker();
+	stacker entenDybdeStack = new stacker();
+	stacker entenTellerStack = new stacker();
+	stacker entenArgDybdeStack = new stacker();
 	int entenDybde = 0;
 	int entenTeller = 0;
 	
@@ -2984,12 +3166,371 @@ public class stacker{
 	//Må muligens endre denne til stacker!
 	
 	
+	@Override 
+	public void enterSetningsSammenlikningEnten(BarnematParser.SetningsSammenlikningEntenContext ctx){ 
+		if(exit)
+			return;
+		System.out.println("Går inn i setningsSammenlikning for enten");	
+				
+		/*
+		 	1. Sjekke syntaks
+		 	
+		 	2. Switch
+		 	
+		 	3. peek entenTellerStack (enten slutt eller midt)
+			
+			4. sjekke barn 1
+				Id eller setning
+				erklært
+				Angitt verdi
+			
+			5. sjekke barn 2
+				Id eller setning
+				erklært
+				Angitt verdi
+			
+			6. sjekke sammenlikninga
+		
+		*/
+		
+		int lokalBarneOpptelling = ctx.getChildCount();
+		
+		if(lokalBarneOpptelling != 3){
+			System.out.println("\n\n------------------------------------------");
+			System.out.println("KOMPILATOR ERROR");		
+			System.out.println("------------------------------------------");
+			
+			System.out.println("Feil i setingssammenlikning for enten eller, syntaksen er feil.");
+			exit = true;
+			return; 
+
+		}
+		//Avlusing
+		System.out.println("Barn 1: " + ctx.getChild(0).getText());
+		System.out.println("Barn 2: "+ ctx.getChild(1).getText());
+		System.out.println("Barn 3: "+ ctx.getChild(2).getText());
+		
+	
+		String lokaltBarn1 = ctx.getChild(0).getText();
+		String lokaltBarn2 = ctx.getChild(2).getText();
+		//String lokalSammenlikn = ctx.getChild(1).getText();
+		
+		if(lokaltBarn1.contains("\"")){
+			
+			String subSetninga1 = lokaltBarn1.substring(1,lokaltBarn1.length()-1);
+			mainVisitor.visitLdcInsn(subSetninga1);
+			
+		} else {
+			if(!SymbolTable.containsKey(lokaltBarn1)){
+				System.out.println("\n\n------------------------------------------");
+				System.out.println("KOMPILATOR ERROR");
+				System.out.println("------------------------------------------");
+			
+				System.out.println("Feil i setningssammenlikning, \""+ lokaltBarn1 + "\" finns ikke");
+				exit = true;
+				return;
+			
+			}
+			
+			variabel lokalVar1 = SymbolTable.get(lokaltBarn1);
+		
+			if(variabelType(lokalVar1.variabelType) != 3){
+				System.out.println("\n\n------------------------------------------");
+				System.out.println("KOMPILATOR ERROR");
+				System.out.println("------------------------------------------");
+			
+				System.out.println("Feil i setningssammenlikning, ID'en du oppga er av type: " 
+				+ lokalVar1.variabelType + ", og må være av typen Setning");
+				exit = true;
+				return; 
+			
+			}
+			
+			if(!lokalVar1.verdiSatt){
+				System.out.println("\n\n------------------------------------------");
+				System.out.println("KOMPILATOR ERROR");
+				System.out.println("------------------------------------------");
+			
+				System.out.println("Feil i setningssammenlikning, \"" 
+				+ lokalVar1 + "\" har ikke blitt angitt en verdi enda.");
+				exit = true;
+				return;
+			
+			}
+				
+			mainVisitor.visitVarInsn(ALOAD, lokalVar1.minnePlassering);	
+		}
+		
+		if(lokaltBarn2.contains("\"")){
+			
+			String subSetninga2 = lokaltBarn2.substring(1,lokaltBarn2.length()-1);
+			mainVisitor.visitLdcInsn(subSetninga2);
+			
+		} else {
+			if(!SymbolTable.containsKey(lokaltBarn2)){
+				System.out.println("\n\n------------------------------------------");
+				System.out.println("KOMPILATOR ERROR");
+				System.out.println("------------------------------------------");
+			
+				System.out.println("Feil i setningssammenlikning, \""+ lokaltBarn2 +"\" finns ikke");
+				exit = true;
+				return;
+			
+			}
+			variabel lokalVar2 = SymbolTable.get(lokaltBarn2);
+			
+			if(variabelType(lokalVar2.variabelType) != 3){
+				System.out.println("\n\n------------------------------------------");
+				System.out.println("KOMPILATOR ERROR");
+				System.out.println("------------------------------------------");
+			
+				System.out.println("Feil i setningssammenlikning, ID'en du oppga er av type: " 
+				+ lokalVar2.variabelType + ", og må være av typen Setning");
+				exit = true;
+				return; 
+			
+			}
+			
+			if(!lokalVar2.verdiSatt){
+				System.out.println("\n\n------------------------------------------");
+				System.out.println("KOMPILATOR ERROR");
+				System.out.println("------------------------------------------");
+			
+				System.out.println("Feil i setningssammenlikning, \"" 
+				+ lokalVar2 + "\" har ikke blitt angitt en verdi enda.");
+				exit = true;
+				return;
+			
+			}
+			
+			mainVisitor.visitVarInsn(ALOAD, lokalVar2.minnePlassering);	
+		}
+		
+	}
+
+	@Override 
+	public void exitSetningsSammenlikningEnten(BarnematParser.SetningsSammenlikningEntenContext ctx){ 
+		if(exit) 	
+			return;
+	
+		Label lokalLabStart;
+		Label lokalLabSlutt;
+		Label lokalLab;
+		int lokaltUtfall = peek(entenDybdeStack);
+
+		
+		switch(lokaltUtfall){
+				case 1: {
+					lokalLabStart = entenStart1;
+					lokalLabSlutt = entenSlutt1;
+					break;	
+				}
+				case 2: {
+					
+					lokalLabStart = entenStart2;
+					lokalLabSlutt = entenSlutt2;
+					break;
+				}
+				case 3: {
+					
+					lokalLabStart = entenStart3;
+					lokalLabSlutt = entenSlutt3;
+					break;
+				}
+				case 4: {
+				
+					lokalLabStart = entenStart4;
+					lokalLabSlutt = entenSlutt4;
+					break;
+				}
+				case 5: {
+				
+					lokalLabStart = entenStart5;	
+					lokalLabSlutt = entenSlutt5;
+					break;
+				}
+				case 6: {
+				
+					lokalLabStart = entenStart6;
+					lokalLabSlutt = entenSlutt6;
+					break;
+				}
+				case 7: { 
+				
+					lokalLabStart = entenStart7;	
+					lokalLabSlutt = entenSlutt7;
+					break;
+				
+				}
+				case 8: {
+				
+					lokalLabStart = entenStart8;
+					lokalLabSlutt = entenSlutt8;
+					break;
+				
+				}
+				case 9: { 
+				
+					lokalLabStart = entenStart9;
+					lokalLabSlutt = entenSlutt9;
+					break;
+				
+				}
+				case 10: { 
+					
+					lokalLabStart = entenStart10;
+					lokalLabSlutt = entenSlutt10;
+					break;
+				
+				}
+				case 11: { 
+ 					
+ 					lokalLabStart = entenStart11;
+					lokalLabSlutt = entenSlutt11;
+					break;
+				
+				}
+				case 12: { 
+
+					lokalLabStart = entenStart12;
+					lokalLabSlutt = entenSlutt12;
+					break;
+				
+				}
+				case 13: { 
+				
+					lokalLabStart = entenStart13;
+					lokalLabSlutt = entenSlutt13;
+					break;
+				
+				}
+				case 14: { 
+					
+					lokalLabStart = entenStart14;
+					lokalLabSlutt = entenSlutt14;
+					break;
+				
+				}
+				case 15: { 
+
+					lokalLabStart = entenStart15;
+					lokalLabSlutt = entenSlutt15;
+					break;
+				
+				}
+				case 16: { 
+
+					lokalLabStart = entenStart16;
+					lokalLabSlutt = entenSlutt16;
+					break;
+				
+				}
+				case 17: { 
+
+					lokalLabStart = entenStart17;
+					lokalLabSlutt = entenSlutt17;
+					break;
+				
+				}
+				case 18: { 
+
+					lokalLabStart = entenStart18;
+					lokalLabSlutt = entenSlutt18;
+					break;
+				
+				}
+				case 19: { 
+
+					lokalLabStart = entenStart19;
+					lokalLabSlutt = entenSlutt19;
+					break;
+				
+				}
+				case 20: { 
+
+					lokalLabStart = entenStart20;
+					lokalLabSlutt = entenSlutt20;
+					break;
+				
+				}
+				default: {
+				
+					System.out.println("\n\n------------------------------------------");
+					System.out.println("KOMPILATOR ERROR");
+					System.out.println("------------------------------------------");
+				
+					System.out.println("Merkelapp feil ved utgang av sammenlikning for entenEller.");
+					
+					exit = true;
+					return;
+				}		
+		}
+		
+		
+		
+		
+		System.out.println("peek : " + peek(entenTellerStack));
+		
+		if(peek(entenTellerStack)> 0){
+			lokalLab = lokalLabStart;
+			System.out.println("\n\nHer må vi ta høgd for ellers!!\n\n");
+		
+		} else {
+			lokalLab = lokalLabSlutt;
+			System.out.println("\n\nHer finns det ikke ellers\n\n");
+		}
+	
+		String lokalSammenlikn = ctx.getChild(1).getText();
+	
+	//INVOKE VIRTUAL
+	//Avlusing
+	/*
+	System.out.println("Trenger invokeVirtual");
+	exit = true;
+	return;
+	*/
+	
+	
+	//invokevirtual #3                  // Method java/lang/String.equals:(Ljava/lang/Object;)Z
+	mainVisitor.visitMethodInsn(INVOKEVIRTUAL, "java/lang/String",  "equals", "(Ljava/lang/Object;)Z", false);
+	
+	
+	//invokevirtual #6                  // Method java/io/PrintStream.println:(Ljava/lang/String;)V
+	//mainVisitor.visitMethodInsn(INVOKEVIRTUAL, "java/io/PrintStream",  "println", "(Ljava/lang/String;)V", false);
+	
+		if(lokalSammenlikn.equals("=")){	
+	
+          		mainVisitor.visitJumpInsn(IFEQ, lokalLab);	
+          	} else if(lokalSammenlikn.equals("!=")){
+          	
+          		mainVisitor.visitJumpInsn(IFNE, lokalLab);
+          	
+          	} else {
+          		
+          		System.out.println("\n\n------------------------------------------");
+			System.out.println("KOMPILATOR ERROR");
+			System.out.println("------------------------------------------");
+			
+			System.out.println("Feil ved sammenliknings uttrykk i setningssammenlikning.");
+					
+			exit = true;
+			return;
+          	
+          	}
+		
+	
+	
+		System.out.println("Går ut or setningsSammenlikning for enten");	
+	}
+	
+	
 	//Sammenlikning
 	@Override public void enterSammenlikningEnten(BarnematParser.SammenlikningEntenContext ctx){
 		if(exit)
 			return;
 			
 		System.out.println("Går inn i sammenlikning for enten eller");
+	
 			
 		kretsTallTypeSammenlikn = -1;
 		int lokalBarneOpptelling = ctx.getChildCount();
@@ -3001,7 +3542,7 @@ public class stacker{
 			
 			System.out.println("\nkun ett barn her\n");
 			String lokalID = ctx.getText();
-
+	
 			if(!SymbolTable.containsKey(lokalID)){
 				System.out.println("\n\n------------------------------------------");
 				System.out.println("KOMPILATOR ERROR");
@@ -3130,19 +3671,189 @@ public class stacker{
 			
 		int lokalBarneOpptelling = ctx.getChildCount();
 		
+		Label lokalLabStart;
+		Label lokalLabSlutt;
+		Label lokalLab;
+		int lokaltUtfall = peek(entenDybdeStack);
+
 		
-		//MÅ ENDRES
-		System.out.println("\t\tMÅ ENDRES I EXITSAMMENLIKNING, altså labels må endres, foreløpig er bare en prototype.");
+		switch(lokaltUtfall){
+				case 1: {
+					lokalLabStart = entenStart1;
+					lokalLabSlutt = entenSlutt1;
+					break;	
+				}
+				case 2: {
+					
+					lokalLabStart = entenStart2;
+					lokalLabSlutt = entenSlutt2;
+					break;
+				}
+				case 3: {
+					
+					lokalLabStart = entenStart3;
+					lokalLabSlutt = entenSlutt3;
+					break;
+				}
+				case 4: {
+				
+					lokalLabStart = entenStart4;
+					lokalLabSlutt = entenSlutt4;
+					break;
+				}
+				case 5: {
+				
+					lokalLabStart = entenStart5;	
+					lokalLabSlutt = entenSlutt5;
+					break;
+				}
+				case 6: {
+				
+					lokalLabStart = entenStart6;
+					lokalLabSlutt = entenSlutt6;
+					break;
+				}
+				case 7: { 
+				
+					lokalLabStart = entenStart7;	
+					lokalLabSlutt = entenSlutt7;
+					break;
+				
+				}
+				case 8: {
+				
+					lokalLabStart = entenStart8;
+					lokalLabSlutt = entenSlutt8;
+					break;
+				
+				}
+				case 9: { 
+				
+					lokalLabStart = entenStart9;
+					lokalLabSlutt = entenSlutt9;
+					break;
+				
+				}
+				case 10: { 
+					
+					lokalLabStart = entenStart10;
+					lokalLabSlutt = entenSlutt10;
+					break;
+				
+				}
+				case 11: { 
+ 					
+ 					lokalLabStart = entenStart11;
+					lokalLabSlutt = entenSlutt11;
+					break;
+				
+				}
+				case 12: { 
+
+					lokalLabStart = entenStart12;
+					lokalLabSlutt = entenSlutt12;
+					break;
+				
+				}
+				case 13: { 
+				
+					lokalLabStart = entenStart13;
+					lokalLabSlutt = entenSlutt13;
+					break;
+				
+				}
+				case 14: { 
+					
+					lokalLabStart = entenStart14;
+					lokalLabSlutt = entenSlutt14;
+					break;
+				
+				}
+				case 15: { 
+
+					lokalLabStart = entenStart15;
+					lokalLabSlutt = entenSlutt15;
+					break;
+				
+				}
+				case 16: { 
+
+					lokalLabStart = entenStart16;
+					lokalLabSlutt = entenSlutt16;
+					break;
+				
+				}
+				case 17: { 
+
+					lokalLabStart = entenStart17;
+					lokalLabSlutt = entenSlutt17;
+					break;
+				
+				}
+				case 18: { 
+
+					lokalLabStart = entenStart18;
+					lokalLabSlutt = entenSlutt18;
+					break;
+				
+				}
+				case 19: { 
+
+					lokalLabStart = entenStart19;
+					lokalLabSlutt = entenSlutt19;
+					break;
+				
+				}
+				case 20: { 
+
+					lokalLabStart = entenStart20;
+					lokalLabSlutt = entenSlutt20;
+					break;
+				
+				}
+				default: {
+				
+					System.out.println("\n\n------------------------------------------");
+					System.out.println("KOMPILATOR ERROR");
+					System.out.println("------------------------------------------");
+				
+					System.out.println("Merkelapp feil ved utgang av sammenlikning for entenEller.");
+					
+					exit = true;
+					return;
+				}		
+		}
+		
+		
+		
+		
+		System.out.println("peek : " + peek(entenTellerStack));
+		
+		if(peek(entenTellerStack)> 0){
+		
+			lokalLab = lokalLabStart;
+			System.out.println("\n\nHer må vi ta høgd for ellers!!\n\n");
+		
+		} else {
+			lokalLab = lokalLabSlutt;
+			System.out.println("\n\nHer finns det ikke ellers\n\n");
+		}
+		
+		
+		//MÅ FIKSES HER!
+		//lokalLab = lokalLabSlutt;
+		
+		
 		
 		
 		if(lokalBarneOpptelling == 1){	
 			
 				
-          		mainVisitor.visitJumpInsn(IFEQ, testStempelHvis);	
+          		mainVisitor.visitJumpInsn(IFEQ, lokalLab);	
           	} 
           	if(lokalBarneOpptelling == 2){
           	
-          		mainVisitor.visitJumpInsn(IFNE, testStempelHvis);
+          		mainVisitor.visitJumpInsn(IFNE, lokalLab);
           	
           	}
           	if(lokalBarneOpptelling == 3){
@@ -3157,19 +3868,19 @@ public class stacker{
           		if(kretsTallTypeSammenlikn == 1){
           			if(lokalSammenlikningsTeikn.equals(">")){
 				
-					mainVisitor.visitJumpInsn(IF_ICMPLE, testStempelHvis);
+					mainVisitor.visitJumpInsn(IF_ICMPLE, lokalLab);
 				
 				} else if(lokalSammenlikningsTeikn.equals("<")){
 				
-					mainVisitor.visitJumpInsn(IF_ICMPGE, testStempelHvis);
+					mainVisitor.visitJumpInsn(IF_ICMPGE, lokalLab);
 			
 				} else if(lokalSammenlikningsTeikn.equals("!=")){
 			
-					mainVisitor.visitJumpInsn(IF_ICMPEQ, testStempelHvis);
+					mainVisitor.visitJumpInsn(IF_ICMPEQ, lokalLab);
 				
 				} else if(lokalSammenlikningsTeikn.equals("=")){
 				
-					mainVisitor.visitJumpInsn(IF_ICMPNE, testStempelHvis);
+					mainVisitor.visitJumpInsn(IF_ICMPNE, lokalLab);
 				
 				} else {
 					System.out.println("\n\n------------------------------------------");
@@ -3188,19 +3899,19 @@ public class stacker{
 				
 				if(lokalSammenlikningsTeikn.equals(">")){
 				
-					mainVisitor.visitJumpInsn(IFLE, testStempelHvis);
+					mainVisitor.visitJumpInsn(IFLE, lokalLab);
 				
 				} else if(lokalSammenlikningsTeikn.equals("<")){
 				
-					mainVisitor.visitJumpInsn(IFGE, testStempelHvis);
+					mainVisitor.visitJumpInsn(IFGE, lokalLab);
 			
 				} else if(lokalSammenlikningsTeikn.equals("!=")){
 			
-					mainVisitor.visitJumpInsn(IFEQ, testStempelHvis);
+					mainVisitor.visitJumpInsn(IFEQ, lokalLab);
 				
 				} else if(lokalSammenlikningsTeikn.equals("=")){
 				
-					mainVisitor.visitJumpInsn(IFNE, testStempelHvis);
+					mainVisitor.visitJumpInsn(IFNE, lokalLab);
 				
 				} else {
 					System.out.println("\n\n------------------------------------------");
@@ -3217,11 +3928,11 @@ public class stacker{
 			
 				if(lokalSammenlikningsTeikn.equals("!=")){
 			
-					mainVisitor.visitJumpInsn(IFEQ, testStempelHvis);
+					mainVisitor.visitJumpInsn(IFEQ, lokalLab);
 				
 				} else if(lokalSammenlikningsTeikn.equals("=")){
 				
-					mainVisitor.visitJumpInsn(IFNE, testStempelHvis);
+					mainVisitor.visitJumpInsn(IFNE, lokalLab);
 					
 				} else {
 					System.out.println("\n\n------------------------------------------");
@@ -3250,21 +3961,9 @@ public class stacker{
           	
           	}
 			 
-		System.out.println("Går ut or sammenlikning");
+		System.out.println("Går ut or sammenlikning for enten eller");
 	}
-	
-//----------------------------------------------------------------------------------------
-//----------------------------------------------------------------------------------------
-//		-- ikke påbyrja --
-//----------------------------------------------------------------------------------------	
-//----------------------------------------------------------------------------------------
-	
-	//EntenEller (if-else)
-	@Override public void enterEntenEller(BarnematParser.EntenEllerContext ctx){
-		if(exit)
-			return;
-		System.out.println("Går inn i EntenEller");
-		
+
 		
 //-------------------------------------------------------------------------------------------------------------------------------------------		
 		//Kommenter ut alt under
@@ -3288,18 +3987,505 @@ public class stacker{
 */		
 //-------------------------------------------------------------------------------------------------------------------------------------------
 	
+	//EntenEller (if-else)
+	@Override public void enterEntenEller(BarnematParser.EntenEllerContext ctx){
+		if(exit)
+			return;
+		System.out.println("Går inn i EntenEller");
+		
+		if(entenTeller >= MAKS_ANTALL_MERKELAPPER){
+				System.out.println("\n\n------------------------------------------");
+				System.out.println("KOMPILATOR ERROR");
+				System.out.println("------------------------------------------");
+				
+				System.out.println("Du har nådd maks antall merkelapper i løkke type 2, kompilatoren takler ikke mer enn 20.");
+				exit = true;
+				return;
+		
+		} else {
+			entenDybde++;
+			entenTeller++;
+			push(entenDybdeStack, entenTeller);
+			push(entenArgDybdeStack, argumentDybde);
+		}
+		
+		/*
+			Døme: 
+			entenEller greier i argument
+			if(entenDybde > 0){
+				
+				if(peek(entenTellerStack)> 0){
+				
+					if(argumentDybde == peek(entenArgDybdeStack)+1){
+				
+						if(peek(entenTellerStack) == 1){
+							
+							switch(){
+							
+							
+							
+							}
+							
+							
+							mainVisitor.visitJumpInsn(GOTO, lokalLabSlutt);
+							mainVisitor.visitLabel(lokalLabStart);
+							
+						
+						
+						}
+						int lokalNyttTall = pop(entenTellerStack)-1;
+						push(entenTellerStack, lokalNyttTall);	
+				
+				
+			
+					}
+			
+				}
+			
+			}
+		
+		
+		*/
+		
+		
+		int lokalBarneOpptelling = ctx.getChildCount();
+		
+		
+		if(!ctx.getChild(1).getText().equals("(")){
+				System.out.println("\n\n------------------------------------------");
+				System.out.println("KOMPILATOR ERROR");
+				System.out.println("------------------------------------------");
+				
+			System.out.println("Feil i Enten/Eller. Pass på at syntaksen er riktig, \"(\" burde etterfølge \"Dersom\".");
+				exit = true;
+				return;
+			
+		
+		}
+		if(!ctx.getChild(3).getText().equals(")")){
+				System.out.println("\n\n------------------------------------------");
+				System.out.println("KOMPILATOR ERROR");
+				System.out.println("------------------------------------------");
+				
+				System.out.println("Feil i Enten/Eller. Pass på at syntaksen er riktig, \")\" må være på riktig plass.");
+				exit = true;
+				return;
+			
+		
+		}
+		if(!ctx.getChild(4).getText().equals("så")){
+				System.out.println("\n\n------------------------------------------");
+				System.out.println("KOMPILATOR ERROR");
+				System.out.println("------------------------------------------");
+				
+				System.out.println("Feil i Enten/Eller. Sjekk om syntaksen er riktig, pass på at \")\" etterfølges av \"så\"");
+				exit = true;
+				return;
+			
+		
+		}
+		
+		if(!ctx.getChild(5).getText().equals("{")){
+				System.out.println("\n\n------------------------------------------");
+				System.out.println("KOMPILATOR ERROR");
+				System.out.println("------------------------------------------");
+				
+				System.out.println("Feil i Enten/Eller. Sjekk om syntaksen er riktig, pass på at \"{\" er på riktig plass.");
+				exit = true;
+				return;
+			
+		
+		}
+		if(ctx.getChild(6).getText().equals("}")){
+				System.out.println("\n\n------------------------------------------");
+				System.out.println("KOMPILATOR ERROR");
+				System.out.println("------------------------------------------");
+				
+				System.out.println("Feil i Enten/eller. Tomt enten/eller-uttrykk, legg til et argument i uttrykket.");
+				exit = true;
+				return;
+			
+		
+		}
+		if(!ctx.getChild(lokalBarneOpptelling-1).getText().equals("}")){
+				System.out.println("\n\n------------------------------------------");
+				System.out.println("KOMPILATOR ERROR");
+				System.out.println("------------------------------------------");
+				
+				System.out.println("Feil i Enten/eller. Sjekk om syntaksen er riktig, pass på at \"}\" er på riktig plass.");
+				exit = true;
+				return;
+			
+		
+		}
+		
+		//Hvis-teller'n
+		int hvisTellern = 6;
+		int antallHvis = 0;
+		boolean lokalFortsett = true;
+		boolean lokalEllersFinns = false;
+		boolean lokalForrige = false;
+		String lokalStreng = "";
+		
+		while(hvisTellern < (lokalBarneOpptelling -1)&&lokalFortsett){
+		
+			lokalStreng = ctx.getChild(hvisTellern).getText();
+			
+			if(lokalStreng.equalsIgnoreCase("{")){
+				lokalForrige = true;
+			
+			} else {
+				lokalForrige = false;
+			}
+			
+			if(lokalStreng.equalsIgnoreCase("}")){
+				
+				if(lokalForrige){
+					System.out.println("\n\n------------------------------------------");
+					System.out.println("KOMPILATOR ERROR");
+					System.out.println("------------------------------------------");
+				
+					System.out.println("Feil i Enten/eller. Tomt Enten/eller uttrykk, pass på at det er et argument i begge utfall.");	
+					exit = true;
+					return;
+				}
+				lokalFortsett = false;
+				
+				if((hvisTellern!=lokalBarneOpptelling-1)){
+					
+					System.out.println("Inneholder ellers!!!!!!");
+					System.out.println("antall gjenværende born, burde være >=4: " + (lokalBarneOpptelling-1-hvisTellern));
+					lokalEllersFinns = true;
+				}
+				if((lokalBarneOpptelling-1-hvisTellern)< 4){
+					System.out.println("\n\n------------------------------------------");
+					System.out.println("KOMPILATOR ERROR");
+					System.out.println("------------------------------------------");
+				
+			System.out.println("Feil i Enten/eller. Tomt Ellers uttrykk, pass på at det er et argument i begge utfall.");	
+					exit = true;
+					return;
+				
+				}
+			
+			
+			} else {
+			
+			
+				antallHvis++;
+			
+			}
+			hvisTellern++;
+			//Avlusing
+			/*
+			System.out.println("barn " + (hvisTellern-5) + " : " +lokalStreng); 
+			System.out.println("barn = } : " + lokalStreng.equalsIgnoreCase("}"));
+			System.out.println("\n\n");	
+			*/
+		}
+		
+		if(lokalEllersFinns){
+			push(entenTellerStack, antallHvis);
+		} else {
+		
+			push(entenTellerStack, 0);
+		}
+		
+		//Avlusing
+		System.out.println("\n\n");
+		System.out.println("Her har vi: " + peek(entenTellerStack) +" hvis uttrykk før vi må gjøre greier i argument");
+		System.out.println("Her har vi ellers: " + lokalEllersFinns);
+				
+		
+		
+		System.out.println("\n\n");
+		
+		
+		
+		
+		
+		
+		
+	
 		
 		
 	}
 	@Override public void exitEntenEller(BarnematParser.EntenEllerContext ctx){ 
 		if(exit)
 			return;
+		
+		Label lokalLabSlutt;
+		int lokaltUtfall = peek(entenDybdeStack);
+
+		
+		switch(lokaltUtfall){
+				case 1: {
+					lokalLabSlutt = entenSlutt1;
+					break;	
+				}
+				case 2: {
+					
+
+					lokalLabSlutt = entenSlutt2;
+					break;
+				}
+				case 3: {
+					
+
+					lokalLabSlutt = entenSlutt3;
+					break;
+				}
+				case 4: {
+					
+					lokalLabSlutt = entenSlutt4;
+					break;
+				}
+				case 5: {
+					
+					lokalLabSlutt = entenSlutt5;
+					break;
+				}
+				case 6: {
+				
+					lokalLabSlutt = entenSlutt6;
+					break;
+				}
+				case 7: { 
+					
+					lokalLabSlutt = entenSlutt7;
+					break;
+				
+				}
+				case 8: {
+				
+					lokalLabSlutt = entenSlutt8;
+					break;
+				
+				}
+				case 9: { 
+					lokalLabSlutt = entenSlutt9;
+					break;
+				
+				}
+				case 10: { 
+
+					lokalLabSlutt = entenSlutt10;
+					break;
+				
+				}
+				case 11: { 
+
+					lokalLabSlutt = entenSlutt11;
+					break;
+				
+				}
+				case 12: { 
+
+					lokalLabSlutt = entenSlutt12;
+					break;
+				
+				}
+				case 13: { 
+
+					lokalLabSlutt = entenSlutt13;
+					break;
+				
+				}
+				case 14: { 
+
+					lokalLabSlutt = entenSlutt14;
+					break;
+				
+				}
+				case 15: { 
+
+					lokalLabSlutt = entenSlutt15;
+					break;
+				
+				}
+				case 16: { 
+
+					lokalLabSlutt = entenSlutt16;
+					break;
+				
+				}
+				case 17: { 
+
+					lokalLabSlutt = entenSlutt17;
+					break;
+				
+				}
+				case 18: { 
+
+					lokalLabSlutt = entenSlutt18;
+					break;
+				
+				}
+				case 19: { 
+
+					lokalLabSlutt = entenSlutt19;
+					break;
+				
+				}
+				case 20: { 
+
+					lokalLabSlutt = entenSlutt20;
+					break;
+				
+				}
+				default: {
+				
+					System.out.println("\n\n------------------------------------------");
+					System.out.println("KOMPILATOR ERROR");
+					System.out.println("------------------------------------------");
+				
+					System.out.println("Merkelapp feil ved utgang av entenEller.");
+					
+					exit = true;
+					return;
+				}		
+		}
+		
+	
+		mainVisitor.visitLabel(lokalLabSlutt);
 			
-		mainVisitor.visitLabel(testStempelHvis);
 			
+			
+		entenDybde--;	
+		pop(entenDybdeStack);	
+		pop(entenArgDybdeStack);
 		System.out.println("Går ut or EntenEller");
 	}
 
+
+	public boolean alleredeLest = false;
+	public int lesMinneplassering = 1;
+	//Les
+	@Override public void enterLes(BarnematParser.LesContext ctx){ 
+		if(exit)
+			return;
+		System.out.println("Går inn i les");	
+		
+		System.out.println("child count: " + ctx.getChildCount());
+		if(ctx.getChildCount() != 5){
+		
+			System.out.println("\n\n------------------------------------------");
+			System.out.println("KOMPILATOR FEIL");
+			System.out.println("------------------------------------------");
+			
+			System.out.println("Syntaksfeil les, pass på at alt er skrevet riktig.");
+			exit = true;
+			return;
+		
+		}
+		
+		
+		
+		if(!alleredeLest){
+			alleredeLest = true;
+			
+			mainVisitor.visitTypeInsn(NEW, "java/util/Scanner");
+            		mainVisitor.visitInsn(DUP);
+            		mainVisitor.visitFieldInsn(GETSTATIC,"java/lang/System", "in", "Ljava/io/InputStream;");
+            		mainVisitor.visitMethodInsn(INVOKESPECIAL, "java/util/Scanner", "<init>", "(Ljava/io/InputStream;)V" , false);
+            		mainVisitor.visitVarInsn(ASTORE,lesMinneplassering);
+			
+		}
+		
+		
+		
+	
+	}
+	@Override public void exitLes(BarnematParser.LesContext ctx){ 
+		if(exit)
+			return;
+			
+		String lokalNøkkel = "IKKE DEFINERT";	
+		
+		if(ctx.getChild(3) != null)
+			lokalNøkkel = ctx.getChild(3).getText();
+			
+		variabel lokalVar;
+
+		if(SymbolTable.containsKey(lokalNøkkel)){
+			lokalVar = SymbolTable.get(lokalNøkkel);
+		} else {
+		
+			System.out.println("\n\n------------------------------------------");
+			System.out.println("KOMPILATOR FEIL");
+			System.out.println("------------------------------------------");
+			
+			System.out.println("Feil i les. ID: " + lokalNøkkel + " er ikke erklært.");
+			exit = true;
+			return;
+		}
+		
+		
+		
+		mainVisitor.visitVarInsn(ALOAD,lesMinneplassering);	
+			
+		switch(variabelType(lokalVar.variabelType)){//Switch
+			case 1:{
+			//Heltall
+			 
+				mainVisitor.visitMethodInsn(INVOKEVIRTUAL, "java/util/Scanner", "nextInt", "()I", false); 
+				mainVisitor.visitVarInsn(ISTORE,lokalVar.minnePlassering);
+			
+				mainVisitor.visitVarInsn(ALOAD,lesMinneplassering);
+				mainVisitor.visitMethodInsn(INVOKEVIRTUAL, "java/util/Scanner", "nextLine", "()Ljava/lang/String;", false);
+				mainVisitor.visitInsn(POP);
+				break;
+			}//slutt utfall 1
+				
+			case 2:{ //Desimaltall
+					 
+				mainVisitor.visitMethodInsn(INVOKEVIRTUAL, "java/util/Scanner", "nextDouble", "()D", false); 
+				mainVisitor.visitVarInsn(DSTORE,lokalVar.minnePlassering);
+			
+				mainVisitor.visitVarInsn(ALOAD,lesMinneplassering);
+				mainVisitor.visitMethodInsn(INVOKEVIRTUAL, "java/util/Scanner", "nextLine", "()Ljava/lang/String;", false);
+				mainVisitor.visitInsn(POP);
+				break;
+			}//Slutt utfall 2
+			
+			case 3:{ //Setning
+				
+				mainVisitor.visitMethodInsn(INVOKEVIRTUAL, "java/util/Scanner", "nextLine", "()Ljava/lang/String;", false);
+				mainVisitor.visitVarInsn(ASTORE,lokalVar.minnePlassering);
+				break;
+				
+			}//slutt utfall 3
+			case 4:{
+			//Sanning
+				
+				mainVisitor.visitMethodInsn(INVOKEVIRTUAL, "java/util/Scanner", "nextBoolean", "()Z", false);
+				mainVisitor.visitVarInsn(ISTORE,lokalVar.minnePlassering);
+			
+		
+				mainVisitor.visitVarInsn(ALOAD,lesMinneplassering);
+				mainVisitor.visitMethodInsn(INVOKEVIRTUAL, "java/util/Scanner", "nextLine", "()Ljava/lang/String;", false);
+				mainVisitor.visitInsn(POP);
+				break;
+	
+			}//Slutt utfall 4
+			
+			default: {
+				System.out.println("\n\n------------------------------------------");
+				System.out.println("KOMPILATOR FEIL");
+				System.out.println("------------------------------------------");
+			
+				System.out.println("Variabeltypen som blei oppgitt i \"enterLes\" støttes ikke.");
+				exit = true;
+				return;	
+			
+			}//Slutt tilbakefall
+		
+		}//Slutt switch
+		
+		lokalVar.verdiSatt = true;
+		System.out.println("Går ut or les");		
+
+	}//Slutt les
 
 
 
@@ -3310,7 +4496,15 @@ public class stacker{
 
 //----------------------------------------------------------------------------------------	
 	
-	
+		
+//----------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------
+//		-- ikke påbyrja --
+//----------------------------------------------------------------------------------------	
+//----------------------------------------------------------------------------------------
+
+
+
 //Prototype	
 /*	
 	//Test label
@@ -3648,9 +4842,7 @@ public class stacker{
 	
 	
 	
-	//Les
-	@Override public void enterLes(BarnematParser.LesContext ctx) { }
-	@Override public void exitLes(BarnematParser.LesContext ctx) { }
+	
 	
 	
 	//Metode erklæring
@@ -3689,7 +4881,7 @@ public class stacker{
 		if(exit)
 			return;
 		
-		int testPlass = 1;
+		int testPlass = 2;
 		if(velgTestPlass){
 			System.out.print("Vennligst velg testPlass som skal skrives ut fra: ");
 			testPlass = les.nextInt();

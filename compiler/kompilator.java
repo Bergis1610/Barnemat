@@ -22,8 +22,8 @@ public class kompilator{
 	String output;
 	if(args.length == 2){
 	
-		file = args[0];
-		output = args[1];
+		file = "tests/" + args[0];
+		output = "output/" + args[1];
 		
 	} else if(args.length == 1){ 
 	
