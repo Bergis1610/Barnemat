@@ -28,9 +28,9 @@ variabeltype: ('Heltall' | 'Desimaltall' | 'Setning' | 'Sannhet') ;
 
 verdiTildeling: 'Angi' ID ':=' ( uttrykk) ';' ;
 
-utskrift : 'Skriv ut' ':' (ID | Setning) ';';
+utskrift : 'Skriv' 'ut' ':' (ID | Setning) ';';
 
-les   : 'Skriv inn' ID ;
+les   : 'Skriv' 'inn' ':' ID ';';
 
 uttrykk:       uttrykk Ganging uttrykk			# Ganging
 	| 	uttrykk Deling uttrykk				# Deling
@@ -45,9 +45,13 @@ uttrykk:       uttrykk Ganging uttrykk			# Ganging
     ;
     
     
-entenEller: 'Dersom' '(' (sammenlikningEnten) ')' 'så' '{' argument* '}' ('ellers' '{' argument* '}')? ;
+entenEller: 'Dersom' '(' (sammenlikningEnten | setningsSammenlikningEnten) ')' 'så' '{' argument* '}' ('ellers' '{' argument* '}')? ;
 
-sammenlikningEnten : (sammenliknbar sammenlikn sammenliknbar) | (ID ('!='|'=')  Sannhet) | (('!')? ID);
+sammenlikningEnten :     (sammenliknbar sammenlikn sammenliknbar) 
+			| (ID ('!='|'=')  Sannhet) 
+			| (('!')? ID) 
+			;
+setningsSammenlikningEnten: ((ID|Setning) ('!='|'=') (ID|Setning)) ;
 
 løkke1 : ('Gjenta'|'gjenta') '{' argument* '}' ('Medan'|'Mens'|'medan'|'mens') '(' sammenlikningLøkke1 ')' ;
 løkke2 : ('Medan'|'Mens'|'medan'|'mens') '(' sammenlikningLøkke2 ')' ('Gjenta'|'gjenta') '{' argument* '}'  ;
@@ -104,5 +108,4 @@ ML_COMMENT
     :   '/*' .*? '*/' '\n' -> skip
     ;  
     
-
 
