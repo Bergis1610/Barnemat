@@ -1,15 +1,249 @@
 Program test
 
+
 Start{
 	
 	
-	Sannhet h := usant;
+	Heltall poengsum;
+	Sannhet ferdig := usant;
+	Setning set;
+	
+	Gjenta{
+		
+		Skriv ut: "Please enter your test score percentage, between 0 and 100:";
+		Skriv inn: poengsum;
+		
+		Dersom (poengsum > 90) så {
+		
+			Skriv ut: "Congratulations, you got an A!";
+	
+		} ellers {
+	
+			Dersom (poengsum > 80) så {
+		
+				Skriv ut: "Good job, you got a B.";
+	
+			} ellers {
+			
+				Dersom (poengsum > 70) så {
+		
+					Skriv ut: "Average, you got a C.";
+		
+				} ellers {
+		
+					Dersom (poengsum > 60) så {
+		
+						Skriv ut: "At least you didn't fail, you got a D.";
+		
+					} ellers {
+	
+						Skriv ut: "You failed, you got an F!";				
+		
+					}
+				}
+			}
+		}
+	
+		
+	Skriv ut: "Do you wish to write in another test score? Type yes to continue";
+	Skriv inn: set;	
+	Dersom (set != "yes") så {
+		Angi ferdig := usant;
+	} ellers {
+		Angi ferdig := sant;
+	}
+	
+		
+	}Medan(ferdig)	
+		
+}Slutt
+
+/*
+Start{
+	
+	
+	Heltall poengsum;
+	Sannhet ferdig := usant;
+	Setning set;
+	
+	Gjenta{
+		
+		Skriv ut: "Skriv inn din poengsum er du grei, et tall mellom 1 og 100";
+		Skriv inn: poengsum;
+		
+		Dersom (poengsum > 90) så {
+		
+			Skriv ut: "Congratulations, you got an A!";
+	
+		} ellers {
+	
+			Dersom (poengsum > 80) så {
+		
+				Skriv ut: "Good job, you got a B.";
+	
+			} ellers {
+			
+				Dersom (poengsum > 70) så {
+		
+					Skriv ut: "Average, you got a C.";
+		
+				} ellers {
+		
+					Dersom (poengsum > 60) så {
+		
+						Skriv ut: "At least you didn't fail, you got a D.";
+		
+					} ellers {
+	
+						Skriv ut: "You failed, you got an F!";				
+		
+					}
+				}
+			}
+		}
+	
+		
+	Skriv ut: "Vil du fortsette? Skriv inn ja eller nei";
+	Skriv inn: set;	
+	Dersom (set != "ja") så {
+		Angi ferdig := usant;
+	} ellers {
+		Angi ferdig := sant;
+	}
+	
+		
+	}Medan(ferdig)	
+		
+}Slutt
+*/
+
+
+
+/*
+Start{
+
+	Heltall poengsum;
+	Sannhet ferdig;
+	Setning set;
+		
+	Skriv ut: "Vil du fortsette? Skriv inn ja eller nei";
+	Skriv inn: set;
+	
+	Dersom (set = "ja") så {
+		Skriv ut: "DU SKREIV JA!";
+	} ellers {
+		Skriv ut: "Du skreiv ut NEI i stedenfor ja";
+	
+	}
+
+}Slutt
+*/
+
+/*
+Start{
+
+	Heltall x;
+	
+	Skriv ut: "Skriv inn et heltall er du grei";
+	Skriv inn: x;
+
+	Skriv ut: x;
+
+
+
+
+
+}Slutt
+*/
+
+/*
+Start{
+	
+	Heltall poengsum := 61;
+		
+	Dersom (poengsum > 90) så {
+		
+		Skriv ut: "Congratulations, you got an A!";
+	
+	} ellers {
+	
+		Dersom (poengsum > 80) så {
+		
+			Skriv ut: "Good job, you got a B.";
+	
+		} ellers {
+			
+			Dersom (poengsum > 70) så {
+		
+				Skriv ut: "Average, you got a C.";
+		
+			} ellers {
+		
+				Dersom (poengsum > 60) så {
+		
+					Skriv ut: "At least you didn't fail, you got a D.";
+		
+				} ellers {
+	
+					Skriv ut: "You failed, you got an F!";				
+		
+				}
+			}
+		}
+	}
+	
+	
+	
+}Slutt
+
+*/
+
+
+/*
+Start{
+	
+	Heltall int := 10;
+	Heltall output := int + 20;
+	
+	Skriv ut: output;
+	
+}Slutt	
+*/	
+	/*
+	Sannhet h := sant;
+	Heltall x := 0;
+	
+	Dersom(!h) så {
+	
+		Gjenta{
+		
+			Skriv ut: "HER HAR VI BARE ENTEN!";
+			Angi x := x +1;
+		} mens(x<5)
+	}ellers {
+	
+		Gjenta{
+		
+			Skriv ut: "ELLERS ELLERS ELLERS!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!";
+			Angi x := x +1;
+		} mens(x<5)
+	
+	}*/
+	
+	
+	/*
 	Dersom (!h) så {
 	
 		Skriv ut: "h = usant";
+		Gjenta {
+			
+			Skriv ut: "Hei";
+			Skriv ut: "Hei igjen :)";
+			Angi x:= x+1;
+		}mens(x<3)
 	
 	}
-	
+	*/
 	
 	
 	
@@ -234,4 +468,4 @@ exitEntenEller
 			Angi x:= 9; 
 		}
 	*/
-}Slutt
+
