@@ -3498,10 +3498,10 @@ public class stacker{
 	//invokevirtual #6                  // Method java/io/PrintStream.println:(Ljava/lang/String;)V
 	//mainVisitor.visitMethodInsn(INVOKEVIRTUAL, "java/io/PrintStream",  "println", "(Ljava/lang/String;)V", false);
 	
-		if(lokalSammenlikn.equals("=")){	
+		if(lokalSammenlikn.equals("!=")){	
 	
           		mainVisitor.visitJumpInsn(IFEQ, lokalLab);	
-          	} else if(lokalSammenlikn.equals("!=")){
+          	} else if(lokalSammenlikn.equals("=")){
           	
           		mainVisitor.visitJumpInsn(IFNE, lokalLab);
           	
