@@ -4,6 +4,34 @@ Program test
 Start{
 	
 	
+	
+	Sannhet ferdig;
+	Setning set;
+
+	Gjenta{
+		
+	Skriv ut: "Type in yes or no";
+	Skriv inn: set;	
+	
+	Dersom (set = "no") så {
+	
+		Skriv ut: "You wrote yes!";
+		Angi ferdig := sant;
+	
+	} ellers {
+		Skriv ut: "You wrote no!";
+		Angi ferdig := usant;
+		
+	}
+	
+		
+	}Medan(!ferdig)	
+		
+}Slutt
+/*
+Start{
+	
+	
 	Heltall poengsum;
 	Sannhet ferdig := usant;
 	Setning set;
@@ -57,6 +85,7 @@ Start{
 	}Medan(ferdig)	
 		
 }Slutt
+*/
 
 /*
 Start{
